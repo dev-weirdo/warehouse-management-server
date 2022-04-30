@@ -26,6 +26,12 @@ const run = async () => {
             res.send(items);
         })
 
+        app.post('/items', async (req, res) => {
+            const newItem = req.body;
+            const result = await groceryCollection.insertOne(newItem);
+            res.send(result);
+        })
+
         app.get('/items/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -52,6 +58,7 @@ const run = async () => {
             const result = await groceryCollection.deleteOne(query);
             res.send(result);
         })
+
 
 
     }
