@@ -26,6 +26,14 @@ const run = async () => {
             res.send(items);
         })
 
+        app.get('/myitems', async (req, res) => {
+            const email = req.query.email;
+            const query = { email };
+            const cursor = groceryCollection.find(query);
+            const items = await cursor.toArray();
+            res.send(items);
+        })
+
         app.post('/items', async (req, res) => {
             const newItem = req.body;
             const result = await groceryCollection.insertOne(newItem);
@@ -67,7 +75,7 @@ const run = async () => {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-    res.send('Hello mammah!')
+    res.send('Hi!')
 })
 
 
