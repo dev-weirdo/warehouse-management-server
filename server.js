@@ -19,11 +19,18 @@ const run = async () => {
     try {
         await client.connect();
         const groceryCollection = client.db("warehouse").collection("groceryItems");
+        const reviewsCollection = client.db("warehouse").collection("reviews");
         app.get('/items', async (req, res) => {
             const query = {};
             const cursor = groceryCollection.find(query);
             const items = await cursor.toArray();
             res.send(items);
+        })
+        app.get('/reviews', async (req, res) => {
+            const query = {};
+            const cursor = reviewsCollection.find(query);
+            const reviews = await cursor.toArray();
+            res.send(reviews);
         })
 
         app.get('/myitems', async (req, res) => {
