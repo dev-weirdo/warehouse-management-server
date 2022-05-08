@@ -8,6 +8,7 @@ require('dotenv').config();
 const port = process.env.PORT || 5000;
 
 //Middleware
+
 app.use(cors());
 app.use(express.json());
 
@@ -61,8 +62,9 @@ const run = async () => {
         app.get('/myitems', verifyJWT, async (req, res) => {
             const dEmail = req.decoded.email;
             const email = req.query.email;
+            console.log(dEmail)
             if (email === dEmail) {
-                const query = { email };
+                const query = { email: email };
                 const cursor = groceryCollection.find(query);
                 const items = await cursor.toArray();
                 res.send(items);
@@ -104,9 +106,6 @@ const run = async () => {
             const result = await groceryCollection.deleteOne(query);
             res.send(result);
         })
-
-
-
     }
     finally { }
 }
