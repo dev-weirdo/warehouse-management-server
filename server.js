@@ -59,8 +59,8 @@ const run = async () => {
         })
 
         app.get('/myitems', verifyJWT, async (req, res) => {
-            const dEmail = req.decoded.email;
-            const email = req.query.email;
+            const dEmail = req?.decoded.email;
+            const email = req?.query.email;
             if (email === dEmail) {
                 const query = { email };
                 const cursor = groceryCollection.find(query);
